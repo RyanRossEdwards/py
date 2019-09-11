@@ -4,26 +4,30 @@ from numpy import random
 
 def main():
     
-    # Speed - optional (use - t)
-    # TBC
-    
-    if len(sys.argv) == 1:
+    # Speed in milliseconds
+    # Set with -t <int> in command line
+    try:
+        speed = float(sys.argv[sys.argv.index('-t')+1]) / 100
+
+    except ValueError:
+        speed = 0.3
+
+
+    # Random or Default (from Wikipedia)
+    # Set with -l <int> in command line
+    try:
+        length = int(sys.argv[sys.argv.index('-l')+1])
+        rule110(random.randint(2, size=length),length, speed)
+
+    # Raised from int() and .index()
+    except ValueError:
         seed = [1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1]
         rows = len(seed)
-        rule110(seed, rows)
-
-    else:
-        try:
-            length = int(sys.argv[sys.argv.index('-l')+1])
-            rule110(random.randint(2, size=length),length)
-
-        # Raised from int() and .index()
-        except ValueError:
-            print ('Invalid Input')
+        rule110(seed, rows, speed)
 
 
-def rule110(seed, rows):
-    # Rule 110
+def rule110(seed, rows, speed):
+    # Rule 110 - hard coded
     rules = [[1,1,0],[1,0,1],[0,1,1],[0,1,0],[0,0,1]]
 
     prev_line = seed
@@ -45,7 +49,7 @@ def rule110(seed, rows):
 
         print_blocks(new_line)
             
-        time.sleep(0.3)
+        time.sleep(speed)
 
 
 def print_blocks(line):
