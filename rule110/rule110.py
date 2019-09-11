@@ -1,10 +1,25 @@
+import sys
 import time
+from numpy import random
 
 def main():
-    seed = [1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1]
-    # seed = [1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1]
-    rows = len(seed)
-    rule110(seed, rows)
+    
+    # Speed - optional (use - t)
+    # TBC
+    
+    if len(sys.argv) == 1:
+        seed = [1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1]
+        rows = len(seed)
+        rule110(seed, rows)
+
+    else:
+        try:
+            length = int(sys.argv[sys.argv.index('-l')+1])
+            rule110(random.randint(2, size=length),length)
+
+        # Raised from int() and .index()
+        except ValueError:
+            print ('Invalid Input')
 
 
 def rule110(seed, rows):
@@ -29,6 +44,8 @@ def rule110(seed, rows):
         prev_line = new_line
 
         print_blocks(new_line)
+            
+        time.sleep(0.3)
 
 
 def print_blocks(line):
@@ -40,8 +57,6 @@ def print_blocks(line):
             print(' ', end='')
 
     print()
-    time.sleep(0.3)
-    # time.sleep(0.01)
 
 
 main()
