@@ -1,2 +1,2 @@
-# py
-Python programming
+# Python
+My repo for various programs in Python!
