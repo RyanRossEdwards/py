@@ -2,6 +2,10 @@ import sys
 import time
 from numpy import random
 
+# Best run at small fontsize in terminal (e.g. 3)
+# Adjust length according to screen/ window length :)
+# python rule110.py -l 700 -t 1
+
 def main():
     
     # Speed in milliseconds
