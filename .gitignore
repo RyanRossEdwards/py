@@ -1,2 +1,19 @@
 # Ignore Mac DS_Store files
 **/.DS_Store
+
+# Flask
+
+venv/
+
+*.pyc
+__pycache__/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
