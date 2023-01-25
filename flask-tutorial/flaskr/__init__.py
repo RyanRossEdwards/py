@@ -29,6 +29,10 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+    @app.route('/day')
+    def day():
+        return 'G\'day Mate!'
+
     from . import db
     db.init_app(app)
 
