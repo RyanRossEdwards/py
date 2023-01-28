@@ -1,8 +1,8 @@
-# Version 2.2
+# Version 2.3
 
 import sys
 import time
-from numpy import random
+import random
 
 # Best run at small fontsize in terminal (e.g. 3)
 # Adjust length according to screen/ window length :)
@@ -36,7 +36,7 @@ def main():
     # Set with -l <int> in command line
     try:
         length = int(sys.argv[sys.argv.index('-l')+1])
-        seed = random.randint(2, size=length)
+        seed = random.choices([0, 1], k=length)
         print(seed)
         rule110(seed,length, speed, rule)
 
