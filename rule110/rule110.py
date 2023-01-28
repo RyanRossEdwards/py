@@ -1,4 +1,4 @@
-# Version 2.0
+# Version 2.1
 
 import sys
 import time
@@ -6,7 +6,7 @@ from numpy import random
 
 # Best run at small fontsize in terminal (e.g. 3)
 # Adjust length according to screen/ window length :)
-# python rule110.py -l 700 -t 1
+# python3 rule110.py -l 10 -t 5
 
 def main():
     
@@ -57,8 +57,10 @@ def rule110(seed, rows, speed, rule):
     print_blocks(seed)
 
     while True:
-        new_line = [0]
+        # drop down first end bit
+        new_line = [prev_line[0]]
 
+        # calculate inner bits
         for i in range(1, rows-1):
             scan = [prev_line[i-1], prev_line[i], prev_line[i+1]]
             if scan in rules:
@@ -66,7 +68,8 @@ def rule110(seed, rows, speed, rule):
             else:
                 new_line += [0]
 
-        new_line += [0]
+        # drop down last end bit
+        new_line += [prev_line[rows-1]]
 
         prev_line = new_line
 
