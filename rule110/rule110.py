@@ -36,6 +36,7 @@ def main():
     # Set with -l <int> in command line
     try:
         length = int(sys.argv[sys.argv.index('-l')+1])
+        # to do - change to use random int based on length, turn int to binary
         seed = random.choices([0, 1], k=length)
         print(seed)
         rule110(seed,length, speed, rule)
@@ -52,8 +53,12 @@ def rule110(seed, rows, speed, rule):
     # e.g. Rule 110 = [[1,1,0],[1,0,1],[0,1,1],[0,1,0],[0,0,1]]
     rules = decimal_to_rules(rule)
 
-    prev_line = seed
-    print_blocks(seed)
+    line_history = Stack()
+    line_history.push(seed)
+    
+    prev_line = line_history.peek()
+    
+    print_blocks(line_history.peek())
 
     while True:
         # drop down first end bit
@@ -70,9 +75,11 @@ def rule110(seed, rows, speed, rule):
         # drop down last end bit
         new_line += [prev_line[rows-1]]
 
-        prev_line = new_line
+        line_history.push(new_line)
+        
+        prev_line = line_history.peek()
 
-        print_blocks(new_line)
+        print_blocks(line_history.peek())
             
         time.sleep(speed)
 
@@ -97,6 +104,55 @@ def decimal_to_rules(decimal):
     # Use masks to return list of rules
     return [all_rules[i] for i in range(len(mask)) if mask[i] == 1]
 
+
+
+
+
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+
+class Stack:
+    # Initializes an empty stack.
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    # Returns true if the stack is empty, false otherwise.
+    def is_empty(self):
+        return self.top is None
+
+    # Adds an item to the top of the stack.
+    def push(self, value):
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
+        self.size += 1
+
+    # Returns the item at the top of the stack without removing it.
+    # If the stack is empty, it raises an error.
+    def peek(self):
+        if self.head is None:
+            raise Exception('EmptyStack')
+        return self.head.value
+
+    # Iteration funciton
+    def __iter__(self):
+        self.current = self.head
+        return self
+
+    # Iteration funciton (next)
+    def __next__(self):
+        if self.current is None:
+            raise StopIteration
+        else:
+            item = self.current.value
+            self.current = self.current.next
+            return item
 
 
 main()
