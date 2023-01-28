@@ -1,4 +1,4 @@
-# Version 2.3
+# Version 2.4
 
 import sys
 import time
@@ -53,6 +53,7 @@ def rule110(seed, rows, speed, rule):
     # e.g. Rule 110 = [[1,1,0],[1,0,1],[0,1,1],[0,1,0],[0,0,1]]
     rules = decimal_to_rules(rule)
 
+    repeat = False
     line_history = Stack()
     line_history.push(seed)
     
@@ -73,13 +74,23 @@ def rule110(seed, rows, speed, rule):
                 new_line += [0]
 
         # drop down last end bit
-        new_line += [prev_line[rows-1]]
+        new_line += [prev_line[rows-1]]        
+
+        if repeat == False:
+            for x in line_history:
+                if new_line == x:
+                    repeat = True
+                    break
 
         line_history.push(new_line)
         
         prev_line = line_history.peek()
 
-        print_blocks(line_history.peek())
+        if repeat == True:
+            print_blocks(line_history.peek(), print_end=' ')
+            print('*')
+        else:
+            print_blocks(line_history.peek())
             
         time.sleep(speed)
 
