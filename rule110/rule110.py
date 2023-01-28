@@ -1,4 +1,4 @@
-# Version 2.1
+# Version 2.2
 
 import sys
 import time
@@ -48,9 +48,8 @@ def main():
 
 
 def rule110(seed, rows, speed, rule):
-    # Rule 110 - hard coded
-    # rules = [[1,1,0],[1,0,1],[0,1,1],[0,1,0],[0,0,1]]
-    # Rule 110 - function!
+    # Apply Rule
+    # e.g. Rule 110 = [[1,1,0],[1,0,1],[0,1,1],[0,1,0],[0,0,1]]
     rules = decimal_to_rules(rule)
 
     prev_line = seed
@@ -78,7 +77,7 @@ def rule110(seed, rows, speed, rule):
         time.sleep(speed)
 
 
-def print_blocks(line):
+def print_blocks(line, print_end='\n'):
     block = '█'
     for item in line:
         if item == 1:
@@ -86,7 +85,7 @@ def print_blocks(line):
         else:
             print(' ', end='')
 
-    print()
+    print(end=print_end)
 
 
 def decimal_to_rules(decimal):
